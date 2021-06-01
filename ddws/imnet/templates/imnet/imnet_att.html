@@ -1,0 +1,54 @@
+<!-- imnet/templates/imnet/imnet_att.html -->
+{% extends 'doomday/base.html' %}
+<!DOCTYPE html>
+<html>
+  <title>{% block title %}Image attack form{% endblock %}</title>
+{% block content %}
+
+<h3 id='page_title'>{{page_title}}</h3>
+
+  <form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form.as_p}}
+    <p><img id="output" style="width:30%"></p>  
+    <input id='im_att_submit' type="submit" value="Send form">    
+  </form>
+  <p> <a href="{% url 'imnet:imnet_initial' %}">{{initial_page_title}}</a> </p>
+
+  <script>
+    $(document).ready(function(){
+      $('#id_doomfile').attr("multiple","true");
+    })
+  </script>
+
+  <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+  <script>
+    var btn = document.getElementById("hidden");
+    $("#hidden").hide()
+    $('label[for="hidden"]').hide();   
+    $(document).ready(function(){
+            $("#boxchecked").click(function (){
+                if ($("#boxchecked").prop("checked")){                
+                    $("#hidden").show();
+                    $('label[for="hidden"]').show();
+                    
+                }else{
+                  $("#hidden").hide();
+                  $('label[for="hidden"]').hide();                  
+                }              
+            });
+        });
+  </script>
+
+  <script>
+    var loadFile = function(event) {
+      var output = document.getElementById('output');
+      output.src = URL.createObjectURL(event.target.files[0]);
+      
+      output.onload = function() {
+        URL.revokeObjectURL(output.src) // free memory
+      }
+    };
+  </script>
+
+{% endblock %}

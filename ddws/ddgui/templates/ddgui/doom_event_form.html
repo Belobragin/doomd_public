@@ -1,0 +1,32 @@
+<!-- ddgui/templates/ddgui/doom_event_form.html -->
+{% extends 'doomday/base.html' %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}Doom event form{% endblock %}</title>
+  </head>
+  {% block content %}
+    {% if request.user.is_authenticated %}
+      <h3>Doomday event(s) main form:</h3>
+        <form action="" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form.as_p }}
+          {{ formset.management_form }}
+          {{ formset.as_p }}
+          <input type="submit" value="Send form">
+        </form>
+      <p> <a href="{% url 'ddgui:ddgui_user' %}">Back to user page</a> </p>
+    {% else %}
+      <p>You are not logged in</p>
+    {% endif %}
+  {% endblock %}
+ </html> 
+
+<script>
+  $(document).ready(function(){
+    $('#id_doomfile').attr("multiple","true");
+
+  })
+</script>
+

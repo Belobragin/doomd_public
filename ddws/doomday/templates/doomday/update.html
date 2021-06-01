@@ -1,0 +1,25 @@
+<!-- templates/doomday/update.html -->
+{% extends 'doomday/base.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Update user form{% endblock %}</title>
+</head>
+{% block content %}
+{% if request.user.is_authenticated %}
+<h2 id=update_login>Update your information</h2>  
+  <p>This user is: {{ user.username|default:"no user with such ID" }}.</p>  
+    <form id="update_form" action="." method="POST" class="padding">
+         {% csrf_token %} 
+	 {{ noodle_form.as_p }}
+         {{ formset.management_form }}
+         {{ formset.as_p }}
+        <button type="submit"> done </button>        
+    </form>
+  <p><a id="logout_field" href="{% url 'logout' %}">Log Out</a></p>
+{% else %}
+  <p>You are not logged in</p>  
+{% endif %}     
+{% endblock %}
+

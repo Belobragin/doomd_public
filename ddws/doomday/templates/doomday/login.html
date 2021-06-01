@@ -1,0 +1,50 @@
+<!-- templates/doomday/login.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<style>
+    label, input {
+        display: block;
+    }
+    span.helptext {
+        display: none;
+    }
+</style>
+
+<head>  
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% load static %}     
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" media="screen">  <!--type="text/css" /> -->
+    
+{% block mycss %} {% endblock mycss %}
+</head>
+
+<body>
+  <div class="container">
+    <div class="col-md-6 col-md-offset-3"></div>
+      <main>
+        {% include 'doomday/messages.html' %}
+        <h3>Log In</h3>
+          <form method="post" action="{{ login_url }}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Log In</button>
+          </form>
+          <p><a href="{% url 'logout' %}">Logout </a></p>
+          <p><a href="{% url 'dashboard' %}">Back to dashboard</a></p>
+          {% if request.user.is_authenticated %}
+            <p><a href="{% url 'password_change' %}">Change password</a></p>  
+            <p><a href="{% url 'edit_user' %}"?next={{request.path}}>Update user data</a></p>
+          {% else %}
+            <p><a href="{% url 'register' %}">Register</a></p>
+            <p><a href="{% url 'password_reset' %}">Reset password</a></p>
+          {% endif %} 
+        </main>
+      </div>
+    </div>
+  </body>
+
+

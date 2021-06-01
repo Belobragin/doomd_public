@@ -1,0 +1,50 @@
+<!-- doomday/templates/doomday/dashboard.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<style>
+    label, input {
+        display: block;
+    }
+    span.helptext {
+        display: none;
+    }
+</style>
+
+<head>  
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% load static %}     
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" media="screen">  <!--type="text/css" /> -->
+    
+{% block mycss %} {% endblock mycss %}
+</head>
+
+<body>
+  <div class="container">
+    <div class="col-md-6 col-md-offset-3"></div>
+      <main>
+        {% include 'doomday/messages.html' %}
+          <h3>{{ page_title }}</h3>
+            <p><a href="{% url 'about' %}">Go to 'About' page</a> </p>
+            <p><a href="{% url 'dnews:dnews_list' %}">Go to 'News' page</a> </p>
+            <p><a id='images_rec' href="{% url 'imnet:imnet_initial'%}">Free: images recognition and attack processing.</a></p>
+            <p><a href="{% url 'bot:main' %}">Asc Bot</a> </p> 
+            <p><a href="{% url 'login' %}?next={{request.path}}">Log In</a></p>
+            {% if user.is_authenticated %}
+              <p id='user_greetings'> Hi {{ user.username }}!</p>
+              <p><a id='user_field' href="{% url 'ddgui:ddgui_user'%}">Your page</a></p> 
+              <p><a id='lp_rec_field' href="{% url 'dscv:dscv_initial'%}">LP recognition page</a></p> 
+              <p><a id="logout_field" href="{% url 'logout' %}">Log Out</a></p>
+            {% if user.is_superuser%}
+              <p><a id='super_user_field' href="{% url 'ddgui:ddgui_initial'%}">Superuser page</a></p>
+            {% endif %}  
+            {% else %}
+              <p>You are not logged in, login please.</p>
+            {% endif %}
+      </main>
+    </div>
+  </div>
+</body>

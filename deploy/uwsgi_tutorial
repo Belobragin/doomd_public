@@ -1,0 +1,23 @@
+https://github.com/unbit/uwsgi-docs/blob/master/WSGIquickstart.rst
+
+# Run:
+uwsgi --http-socket :8000 --plugin python --wsgi-file test.py
+sudo uwsgi --http-socket :8000 --plugin python --wsgi-file doomday/wsgi.py
+
+[uwsgi]
+http = 127.0.0.1:8000
+chdir = /opt/bitnami/projects/doomd/ddws/
+wsgi-file = doomday/wsgi.py
+#plugins = /usr/lib/uwsgi/plugins/python
+processes = 4
+threads = 2
+stats = 127.0.0.1:9191
+
+
+
+
+
+############
+python -m gunicorn --workers=2 doomday.wsgi:application
+sudo gunicorn --workers=2 doomday.wsgi:application
+

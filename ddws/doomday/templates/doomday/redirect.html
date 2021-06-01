@@ -1,0 +1,17 @@
+<!-- imnet/templates/imnet/imnetredir.html -->
+{% extends 'doomday/base.html' %}
+
+{% block title %}Redirect{% endblock %}
+
+{% block content %}
+{{ page_title }}
+<script>
+    function redirect(){
+       window.location.href = "/imnet/{{redirect_path}}";
+                              
+    }
+    setTimeout(redirect, {{mydelay}});
+</script>
+{% endblock %}
+
+

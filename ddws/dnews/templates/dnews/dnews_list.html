@@ -1,0 +1,26 @@
+<!-- dnews/templates/dnews/dnews_list.html -->
+
+{% extends 'doomday/base.html' %}
+<!DOCTYPE html>
+<html>
+    <title>{% block title %}Doomd news{% endblock %}</title>
+    
+    {% block content %}
+        <body>
+            <h3>All news:</h3>
+        </body>
+     
+        {% if latest_news_list %}
+            <ul>
+                {% for mynews in latest_news_list %}
+                    <li> {{mynews.release_date}} </li>
+                        <p><a href= "{%url 'dnews:dnews_info' mynews.id %}" >{{mynews.header }} </a></p>
+                {% endfor %}
+            </ul>
+                {% else %}
+                    <p>No news are available.</p>
+        {% endif %}
+        
+    {% endblock %}
+    
+</html>

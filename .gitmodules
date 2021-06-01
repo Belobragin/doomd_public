@@ -1,0 +1,6 @@
+[submodule "lib/python3.8/site-packages/nltk"]
+	path = lib/python3.8/site-packages/nltk
+	url = https://github.com/Belobragin/nltk_local
+[submodule "lib/python3.8/site-packages/chatterbot"]
+	path = lib/python3.8/site-packages/chatterbot
+	url = https://github.com/Belobragin/chatterbot_local

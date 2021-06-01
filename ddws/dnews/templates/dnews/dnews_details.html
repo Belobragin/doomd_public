@@ -1,0 +1,18 @@
+<!-- dnews/templates/dnews/dnews_details.html -->
+
+{% extends 'doomday/base.html' %}
+<!DOCTYPE html>
+<html>
+    <title>{% block title %}Doomd news details{% endblock %}</title>
+    
+    {% block content %}
+        <body>
+            <h3>News content:</h3>
+        </body>
+     
+        <p><h4> {{ddnews.release_date}} - {{ddnews.header}}  </h4></p>
+        <p> {{ddnews.news_text}}</p>
+        
+    {% endblock %}
+    
+</html>

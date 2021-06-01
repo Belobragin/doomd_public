@@ -1,0 +1,13 @@
+[uwsgi]
+env=DOOMD_DEV=0
+env=DOOMD_DEBUG=0
+#http=127.0.0.1:8000
+socket=127.0.0.1:8000
+protocol=uwsgi
+chdir=/opt/bitnami/projects/doomd/ddws/
+wsgi-file=doomday/wsgi.py
+#plugins = /usr/lib/uwsgi/plugins/python
+processes=4
+threads=2
+harakiri=600
+stats=127.0.0.1:9191

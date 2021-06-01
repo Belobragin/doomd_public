@@ -1,0 +1,89 @@
+<!-- imnet/templates/imnet/imnet_attres.html -->
+{% extends 'doomday/base.html' %}
+<!DOCTYPE html>
+<html>
+  <title>{% block title %}Attack result{% endblock %}</title>
+  {% block content %}
+    <head>  
+      {% load static %}     
+      <link href="{% static 'imnet/css/imnet_attack.css' %}" rel="stylesheet" media="screen"> 
+    </head>
+
+    <h3 id='page_title'>{{page_title}}</h3>
+
+    <div class = 'imnet_attack'>
+        <figure>
+          <figcaption>{{ object.recimage.url }} </figcaption>     <!-- {{image_name}}-->
+          <img id="original" style="width:80%" src= "{{ recimage }}" alt = "Error in original image">
+        </figure>
+        <figure>
+          <figcaption> Delta illustration </figcaption> 
+          <img id="delta" src= "{{ delta_image }}" alt = "Error in delta image">
+          <figcaption ><button type="submit" style="margin: 10px 30px auto" data-href='{{ delta_image }}' download="delta.png" onclick='forceDownload(this)'>Download</button></figcaption>
+        </figure>
+        <figure>
+          <figcaption> Attacking image </figcaption>
+          <img id="adversarial"  src= "{{ adverImage }}" alt = "Error in attack image">
+          <figcaption ><button type="submit" style="margin: 10px 30px auto" data-href='{{ adverImage }}' download="adversarial.png" onclick='forceDownload(this)'>Download</button></figcaption>
+        </figure> 
+    </div>
+    <p> </p>
+    <div id="result" class="result">   <!--Showing the filtered result of recognition -->
+        {% if results|length > 0 %}
+          <table class="table">        
+          <tr>
+              <th></th>
+              <th><b>  imagenetID </b></th> 
+              <th><b>  label </b></th>
+              <th><b>  class_idx </b></th>
+              <th><b>  confidence </b></th>
+            </tr>  
+        {% for row in results %}  
+            <tr>          
+              <td>{{row.id}}</td>
+              <td> {{row.imagenet_uid}} </td>
+              <td> {{row.imagenet_unique_id}} </td>
+              <td> {{row.imagenet_class_label_id}} </td>
+              <td> {{row.confidence}} </td>
+            </tr>
+          {% endfor %}
+        </table>
+        {% else %}
+        No data yet
+        <p> </p>
+        {% endif %}
+    </div>
+  <p> <a href="{% url 'imnet:imatt' %}">Back to 'Image attack' form</a> </p>
+  <p> <a href="{% url 'imnet:imnet_initial' %}">{{initial_page_title}}</a> </p>
+
+  <script>
+    $(document).ready(function(){
+      $('#id_doomfile').attr("multiple","true");
+    })
+  </script>
+  
+  <script>
+    function forceDownload(link){
+        var url = link.getAttribute("data-href");
+        var fileName = link.getAttribute("download");
+        link.innerText = "Working...";
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", url, true);
+        xhr.responseType = "blob";
+        xhr.onload = function(){
+            var urlCreator = window.URL || window.webkitURL;
+            var imageUrl = urlCreator.createObjectURL(this.response);
+            var tag = document.createElement('a');
+            tag.href = imageUrl;
+            tag.download = fileName;
+            document.body.appendChild(tag);
+            tag.click();
+            document.body.removeChild(tag);
+            link.innerText="Download Image";
+        }
+        xhr.send();
+    }
+  </script>
+
+  {% endblock %}
+</html>

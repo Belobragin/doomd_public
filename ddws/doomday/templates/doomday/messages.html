@@ -1,0 +1,11 @@
+<!-- doomday/templates/doomday/messages.html -->
+
+{% if messages %}
+  <ul class="messages" id="message_container">
+    {% for message in messages %}
+      <div class="alert alert-success" role="alert" >
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+      </div>
+    {% endfor %}
+  </ul>
+{% endif %}

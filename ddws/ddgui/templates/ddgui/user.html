@@ -1,0 +1,18 @@
+<!-- ddgui/templates/ddgui/user.html-->
+{% extends 'doomday/base.html' %}
+
+{% block title %}User{% endblock %}
+
+{% block content %}
+  <h3>{{ page_title }}</h3>
+    {% if request.user.is_authenticated %}
+      <p id='user_page_header'>This user is: {{ username|default:"no user with such ID" }}.</p>  
+      <p><a href="{% url 'ddgui:ddgui_new_doom_event_form'%}"?next={{request.path}}>New doom event</a></p>
+      <p><a href="{% url 'ddgui:ddgui_edit_doom_event_form'%}"?next={{request.path}}>Edit doom events</a></p>
+    {% if user.is_superuser %}  
+        <p><a href="{% url 'ddgui:ddgui_initial'%}">Superuser page</a></p>
+    {% endif %}
+    {% else %}
+      <p>You are not logged in</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,16 @@
+<!-- ddgui/templates/ddgui/initial.html-->
+{% extends 'doomday/base.html' %}
+
+{% block title %}ddgui{% endblock %}
+
+{% block content %}
+  <h3>{{ page_title }}</h3>
+    <p>All users: </p>  
+      {% for iii in all_users %}
+        <p><li> {{iii}}</li></p>
+      {% empty %}
+        <p>Nothing to show.</p>
+      {% endfor %}   
+    <p><a id='user_field' href="{% url 'ddgui:ddgui_user'%}">Your page</a></p>  
+{% endblock %}
+

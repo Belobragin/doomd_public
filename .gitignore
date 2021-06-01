@@ -1,0 +1,39 @@
+ddws/db.sqlite3
+/*.ipynb
+! dd_testpostgresbase.ipynb
+**/.ipynb_*
+**/__pycache__
+**/temp
+**/temp/*
+**/test_data
+**/migrations
+**/migrations/*
+**/media
+**/media/*
+**/test_data/
+**/experimental*
+**/archive*
+**/staticfiles
+doomd_uwsgi.ini
+
+#virtual environment:
+/lib64
+/lib/python3.8/site-packages/*
+#exclusion: chatterbot library in active development:
+#exclusion: nltk package modified for local download
+# nltk and chatterbot libraries added as submodules
+!/lib/python3.8/site-packages/chatterbot
+!/lib/python3.8/site-packages/nltk
+
+bin
+bin/*
+include
+include/*
+pyvenv.cfg
+share/
+Makefile
+make*
+conf.py
+index.rst
+
+

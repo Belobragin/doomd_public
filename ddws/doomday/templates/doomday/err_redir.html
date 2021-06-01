@@ -1,0 +1,30 @@
+<!-- imnet/templates/imnet/imnetredir.html -->
+{% extends 'doomday/base.html' %}
+
+{% block title %}Error redirect{% endblock %}
+
+{% block content %}
+<p> </p>
+<p id = 'page_title'><b> {{ page_title }}</b></p>
+<p> </p>
+<div id='err_ess'>
+    <p><b> Cause of error:</b></p>
+    <p>{{err_ess}}</p>
+
+</div>
+<div id='error_descr'>
+    <p><b> Full error description:</b></p>
+    <p>{{err_descr}}</p>
+</div>
+<p> </p>
+<p> <b> You will be redirected soon </b></p>
+<script>
+    function redirect(){
+       window.location.href = "/{{application}}/{{redirect_path}}";
+                              
+    }
+    setTimeout(redirect, {{mydelay}});
+</script>
+{% endblock %}
+
+

@@ -1,0 +1,23 @@
+<!-- imnet/templates/imnet/initial.html-->
+{% extends 'doomday/base.html' %}
+
+{% block title %}Image tweaks{% endblock %}
+
+{% block content %}
+<h3>{{ page_title }}</h3>
+  <p id='user_greetings'>Hello {{ user.username|default:" Anonymous"}}!</p>
+  <p><a href="{% url 'imnet:imrec' %}">Go to recognize image form</a> </p>
+  <p><a href="{% url 'imnet:imatt' %}">Go to attack image form</a> </p>
+  {% if has_spoof_perm %}
+      <p><a href="{% url 'imnet:spoofatt' %}">Go to spoof form</a> </p>
+  {% endif %}
+  <p>All attack algorythms: </p>
+    {% for myalgo in algo_list %}
+      <p>
+        <li> {{myalgo}}</li>
+      </p>
+    {% empty %}
+      <p><li> No attack algorythms yet </li></p>
+    {% endfor %}
+{% endblock %}
+

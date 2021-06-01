@@ -1,0 +1,52 @@
+<!-- imnet/templates/imnet/imnet_rec.html -->
+{% extends 'doomday/base.html' %}
+<!DOCTYPE html>
+<html>
+  <title>{% block title %}Image recognize form{% endblock %}</title>
+{% block content %}
+
+<h3 id = 'page_title'>{{page_title}}</h3>
+
+  <form id="InputForm" action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form.as_p}}   
+    <p><img id="output" style="width:30%"></p> 
+    <input id = 'im_rec_submit' type="submit" value="Send form">
+  </form>
+<p> <a href="{% url 'imnet:imnet_initial' %}">Go to '{{initial_page_title}}' page</a> </p>
+
+<div id="result" class="result">   <!--Showing the filtered result of recognition -->
+
+<script>
+  $(document).ready(function(){
+    $('#id_doomfile').attr("multiple","true");
+
+  })
+</script>
+
+<script>
+      var loadFile = function(event) {
+        var output = document.getElementById('output');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        
+        output.onload = function() {
+          URL.revokeObjectURL(output.src) // free memory
+        }
+      };
+</script>
+
+<script>
+$.ajax({
+    url: "/imnet/imrec/",
+    type: 'get',
+    success: function (data) {
+      alert("Success");
+      var div = document.getElementById('jsondata');
+      div.innerHTML = div.innerHTML + data.foo;       
+
+    }
+  });
+ </script>
+
+{% endblock %}
+

@@ -1,0 +1,67 @@
+### devdoomd project ###################################
+devdoomd.vbelobragin.com
+ssh -i '~/.ssh/dev.pem' bitnami@3.18.18.20
+ObbxmvGQPwr8
+
+### doomd project #######################################
+doomd.vbelobragin.com
+ssh -i '~/.ssh/ls_ohio_deft.pem' bitnami@3.23.192.177
+tvdGPVSZDVM2
+
+#to doomd/
+scp -i '~/.ssh/ls_ohio_deft.pem' deploy/settings.py bitnami@3.23.192.177:/opt/bitnami/projects/doomd/ddws/doomday/
+scp -i '~/.ssh/ls_ohio_deft.pem' -r lib/python3.8/site-packages/nltk/* bitnami@3.23.192.177:/home/bitnami/.local/lib/python3.8/site-packages/nltk/
+
+#from doomd to local:
+scp -i '~/.ssh/ls_ohio_deft.pem' bitnami@3.23.192.177:/opt/bitnami/projects/doomd/doomd_uwsgi.ini /run/media/admin/bvv1/Myprojects/doomd/deploy/
+scp -i '~/.ssh/ls_ohio_deft.pem' bitnami@3.23.192.177:/opt/bitnami/projects/doomd/ddws/doomday/settings.py /run/media/admin/bvv1/Myprojects/doomd/deploy/
+scp -i '~/.ssh/ls_ohio_deft.pem' bitnami@3.23.192.177:~/requirements.prod.txt /run/media/admin/bvv1/Myprojects/doomd/deploy/
+scp -i '~/.ssh/dev.pem' bitnami@devdoomd.vbelobragin.com:/etc/nginx/conf.d/devdoomd.vbelobragin.com.conf .
+#copy nginx folder:
+scp -r -i '~/.ssh/ls_ohio_deft.pem' bitnami@3.23.192.177:/etc/nginx/sites-available /run/media/admin/bvv1/Myprojects/doomd/deploy/nginx/
+scp -r -i '~/.ssh/ls_ohio_deft.pem' bitnami@3.23.192.177:/etc/nginx/sites-enabled /run/media/admin/bvv1/Myprojects/doomd/deploy/nginx/
+#copy certificates:
+scp -r -i '~/.ssh/ls_ohio_deft.pem' bitnami@3.23.192.177:/etc/letsencrypt /run/media/admin/bvv1/Myprojects/doomd/deploy/
+scp -r -i '~/.ssh/dev.pem' deploy/letsencrypt bitnami@3.18.18.20:/etc/opt/bitnami/projects/doomd/ddws/doomday/
+#from devdoom to local:
+scp -i '~/.ssh/dev.pem' bitnami@3.18.18.20:/opt/bitnami/projects/doomd/tunnelclose.sh /run/media/admin/bvv1/Myprojects/doomd/
+
+#Prod database for doomd.vbelobragin.com:
+ls-2b0f48a0b8493535874b6730bf21a9f8fb1261db.cvxtgu8s4dfx.us-east-2.rds.amazonaws.com
+8%?3C~&5{-~&Nm-oWx>*Hj+g_:!UdGd[
+
+#tunneling:
+- open tunnel from /opt/bitnami/project/doomd/ fold
+ssh -i ddws/.ssh/new.pem -N -f -L 8006:localhost:8006 ec2-user@[IP]
+- open tunnel - absolute pass:
+mygtsspacebot:
+	ssh -i ~/.ssh/dev.pem  -N -f -L 8008:localhost:8000 bitnami@3.133.202.190
+devdoomd: 
+	ssh -i ~/.ssh/dev.pem bitnami@3.18.18.20 "ssh -i /opt/bitnami/projects/doomd/ddws/.ssh/new.pem -N -f -L 8006:localhost:8006 ec2-user@[IP]"
+doomd:
+	ssh -i ~/.ssh/dev.pem bitnami@3.23.192.177 "ssh -i /opt/bitnami/projects/doomd/ddws/.ssh/new.pem -N -f -L 8006:localhost:8006 ec2-user@[IP]"
+- close tunnel (direct sudo kill ... does not work):
+devdoomd:
+	ssh -i ~/.ssh/dev.pem bitnami@3.18.18.20 "/opt/bitnami/projects/doomd/tunnelclose.sh"
+doomd:
+	ssh -i ~/.ssh/ls_ohio_deft.pem bitnami@3.23.192.177 "/opt/bitnami/projects/doomd/tunnelclose.sh"
+
+
+#Certificates for vbelobragin.com:
+-----------
+Congratulations! Your certificate and chain have been saved at:
+   /etc/letsencrypt/live/vbelobragin.com/fullchain.pem
+   Your key file has been saved at:
+   /etc/letsencrypt/live/vbelobragin.com/privkey.pem
+   Your cert will expire on 2021-07-20. To obtain a new or tweaked
+   version of this certificate in the future, simply run certbot
+   again. To non-interactively renew *all* of your certificates, run
+   "certbot renew"
+-----------
+
+#libraries:
+/home/bitnami/.local/lib/python3.8/site-packages/ _NEVER!!!!!
+
+'/opt/bitnami/python/lib/python3.8/site-packages/ - CORRECT!!!!!!
+
+

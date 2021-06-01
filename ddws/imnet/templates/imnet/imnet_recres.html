@@ -1,0 +1,56 @@
+<!-- imnet/templates/imnet/imnet_recres.html -->
+{% extends 'doomday/base.html' %}
+<!DOCTYPE html>
+<html>
+  <title>{% block title %}Image recognition{% endblock %}</title>
+{% block content %}
+
+<h3 id='page_title'>{{page_title}}</h3>
+<p> </p>
+<p> </p>
+<p> {{image_name}} </p>
+<img id="output" style="width:30%" src= "{{ recimage }}" alt = "Error in image">
+<p> </p>
+<div id="result" class="result">   <!--Showing the filtered result of recognition -->
+    {% if results|length > 0 %}
+      <table class="table">
+        
+      <tr>
+          <th></th>
+          <th><b>  imagenetID </b></th> 
+          <th><b>  label </b></th>
+          <th><b>  class_idx </b></th>
+          <th><b>  confidence </b></th>
+        </tr>  
+    {% for row in results %}  
+        <tr>          
+          <td>{{row.id}}</td>
+          <td> {{row.imagenet_uid}} </td>
+          <td> {{row.imagenet_unique_id}} </td>
+          <td> {{row.imagenet_class_label_id}} </td>
+          <td> {{row.confidence}} </td>
+        </tr>
+      {% endfor %}
+    </table>
+    {% else %}
+    No data yet
+    <p> </p>
+    {% endif %}
+</div>
+
+<p> <a href="{% url 'imnet:imrec' %}">Back to 'Image input' form</a> </p>
+<p> <a href="{% url 'imnet:imnet_initial' %}">Go to '{{initial_page_title}}' page</a> </p>
+
+ <!--<div id="result" class="result"></div>   <!--Showing the filtered result of recognition -->
+
+
+<script>
+  $(document).ready(function(){
+    $('#id_doomfile').attr("multiple","true");
+
+  })
+</script>
+
+
+{% endblock %}
+

@@ -1,0 +1,50 @@
+<!-- dscv/templates/dscv/inputlp.html -->
+{% extends 'doomday/base.html' %}
+<!DOCTYPE html>
+<html>
+  <title>{% block title %}LP input{% endblock %}</title>
+{% block content %}
+
+<h3 id="page_title">{{page_title}}:</h3>
+
+<script>
+  $(document).ready(function(){
+    $('#id_doomfile').attr("multiple","true");
+
+  })
+ </script>
+
+ <script>
+  var loadFile = function(event) {
+    var output = document.getElementById(event);
+    output.src = URL.createObjectURL(event.target.files[0]);
+    
+    output.onload = function() {
+      URL.revokeObjectURL(output.src) // free memory
+    }
+  };
+</script>
+
+  <form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form.as_p}}
+   
+    <p><img id="output" style="width:30%"></p>  
+
+    <script>
+      var loadFile = function(event) {
+        var output = document.getElementById('output');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        
+        output.onload = function() {
+          URL.revokeObjectURL(output.src) // free memory
+        }
+      };
+    </script>
+
+    <input id = 'lp_form_submit' type="submit" value="Send form">
+  </form>
+<p> <a href="{% url 'dscv:dscv_initial' %}">Go to '{{initial_page_title}}'</a> </p>
+
+{% endblock %}
+
